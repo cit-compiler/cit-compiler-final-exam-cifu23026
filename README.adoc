@@ -278,7 +278,7 @@ NOTE: この文書に差し込んでいる下記ダミーファイルはJPEGフ�
 
 .作業中のMSYS2ターミナルの様子のスナップショット
 --
-image::cloning_lox01.jpg[]
+image::cloning_lox01.png[]
 --
 NOTE: 人によってはVSCodeのターミナルペインを使っているかもしれない。その場合には、VSCodeのターミナル部分のスナップショットをとりなさい。
 
@@ -297,14 +297,14 @@ IMPORTANT: もし、最新のlox01が、試験範囲ちょうどの段階の状�
 
 .`sample03.lox` を動作させた様子のスナップショット
 --
-image::sample03_lox_snap.jpg[]
+image::sample03_lox_snap.png[]
 --
 
 * `codes/sample04.lox` を lox01の `codes` ディレクトリへコピーして、実行しなさい。
 
 .`sample04.lox` を動作させた様子のスナップショット
 --
-image::sample04_lox_snap.jpg[]
+image::sample04_lox_snap.png[]
 --
 
 IMPORTANT: 問5の回答に手を付けたなら、一度commitしておきなさい（後でやったり、修正した場合も同様）。 +
@@ -376,6 +376,22 @@ NOTE: 修正や動作確認の途中でも、必要ならcommitしておきな�
       return null;
     }
   }
+// Scanner.java <1>
+  private void string(char quote) {
+      while (peek() != quote && !isAtEnd()) {
+        if (peek() == '\n') line++;
+        advance();
+      }
+
+      if (isAtEnd()) {
+        Lox.error(line, "Unterminated string.");
+        return;
+      }
+
+      advance(); // closing quote
+      String value = source.substring(start + 1, current - 1);
+      addToken(STRING, value);
+    }
 ----
 <1> 修正したファイル名をここに書く。
 <2> 修正したメソッドの先頭から末尾までを抽出する。
@@ -389,7 +405,7 @@ NOTE: 修正や動作確認の途中でも、必要ならcommitしておきな�
 
 .`lox_s` のLoxインタプリタを実行したときのスナップショット
 --
-image::lox_s_snap.jpg[]
+image::lox_s_snap.png[]
 --
 
 IMPORTANT: 問6の回答に手を付けたなら、commitしておきなさい（後でやったり、修正した場合も同様）。 +
